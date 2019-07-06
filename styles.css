@@ -1,20 +1,24 @@
 /* reseting browser styles */
 * {
     box-sizing: border-box;
-    font-family: system-ui;
+    font-family: Helvetica;
 }
 
 body {
     margin: 0;
+    background-color: lightgray;
+    background-image: url("resources/OGBen copy.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 header {
-    border-bottom: 1px solid grey;
+    border-bottom: 10px blue;
     height: 15vh;
     padding: 20px 10px;
     width: 100%;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    /*border-top: 10px groove green;*/
+    /*border-bottom: 10px groove green;*/
 }
 
 header h1,
@@ -44,17 +48,19 @@ sidebar header input {
 }
 
 #thread-list li {
-    border-bottom: 1px solid grey;
+    border-bottom: 0px solid grey;
 }
 
 #thread-list li h2 {
     padding: 20px 10px;
     margin: 0;
+    text-shadow: 1px 2px 2px #7A7A7A;
 }
 
 #message-list li {
     padding: 10px 20px;
-    border-bottom: 1px solid grey;
+    border-bottom: 0px solid grey;
+    text-shadow: 1px 2px 2px #7A7A7A;
 }
 
 #new-message-form {
@@ -69,12 +75,16 @@ sidebar header input {
 }
 
 #new-message-form textarea {
+    background-color: #7A7A7A;
+    text-decoration-color: white;
+    text-shadow: 1px 2px 2px #7A7A7A;
     height: 100%;
     margin: 10px;
     border-radius: 5px;
 }
 
 #new-message-form button {
+    text-shadow: 1px 2px 2px #7A7A7A;
     height: 50px;
     margin: 10px;
     border-radius: 5px

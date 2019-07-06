@@ -4,20 +4,50 @@ let userId = "henry";
 const messageService = new MessageService(userId);
 
 window.addEventListener("load", function(){
+    createFormListener()
     document.getElementById("greeting").innerHTML = `Welcome ${userId}`;
-    messageService.getAllMessages().then(successCallback, errorCallback);
+    messageService.getAllMessages().then(successCallback, errorCallback)
 
-    function successCallback(response) {
-        populateMessages(response);
+        function successCallback(response) {
+             populateMessages(response);
+            }
+
+        function errorCallback(response) {
+            console.log(response)
+        }
+    });
+
+    function populateMessages(messages) {
+        messages.forEach(message => {
+            addMessageToThread(message)
+        })
     }
 
-    function errorCallback(response) {
-        populateMessages(response)
-    }
-});
+    function createFormListener() {
+        const form = document.getElementById("new-message-form");
 
-function populateMessages(messages) {
-    messages.forEach(message => {
+        form.onsubmit = function(event){
+            event.preventDefault();
+
+            const data = {
+                fromid: userId,
+                message: form.message.value
+            };
+
+            messageService.createNewMessage(data)
+                .then(successCallback, errorCallback);
+
+            function successCallback(response){
+                addMessageToThread(response)
+            }
+
+            function errorCallback(response){
+                console.log(response)
+            }
+        }
+    };
+
+    function addMessageToThread(message) {
         const messageListItem = document.createElement("LI");
         const userIdHeading = document.createElement("h3");
         const messageParagraph = document.createElement("p");
@@ -28,6 +58,6 @@ function populateMessages(messages) {
         messageListItem
             .appendChild(userIdHeading)
             .appendChild(messageParagraph);
-        document.getElementById("message-list").appendChild(messageListItem)
-    })
+        document.getElementById("message-list").appendChild(messageListItem);
+
 }
