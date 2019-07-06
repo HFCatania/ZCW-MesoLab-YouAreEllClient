@@ -1,18 +1,34 @@
 export default class MessageService {
 
-    getAllMessages(){
-        let request = new XMLHttpRequest();
+    getAllMessages() {
+        const request = new XMLHttpRequest();
 
-        request.onload = function() {
-            if(request.status >= 200 && request.status < 300){
-                console.log(JSON.parse(request.responseText));
-            } else {
-                console.log('Error: ' + request.status);
-            }
-        };
+        new Promise(function (resolve, reject) {
+            // Setup our listener to process compeleted requests
+            request.onload = function () {
+                // Process the response
+                if (request.status >= 200 && request.status < 300) {
+                    const threads = JSON.parse(request.responseText); // 'This is the returned text.'
+                    resolve(threads);
+                } else {
+                    reject({
+                        status: request.status,
+                        statusText: request.statusText
+                    });
+                }
+            };
 
-        request.open("GET", "http://zipcode.rocks:8085/messages");
+            request.open("GET", "http://zipcode.rocks:8085/messages");
 
-        request.send();
+            request.send();
+        }).then(successCallback, errorCallback);
+
+        function successCallback(response) {
+            console.log(response);
+        }
+
+        function errorCallback(response){
+            console.log(response);
+        }
     }
 }
